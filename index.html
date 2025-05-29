@@ -1,0 +1,984 @@
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+  <title>
+   Nuansa Kopi
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Montserrat", sans-serif;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: #b45309;
+      user-select: none;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: -0.03em;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: drop-shadow(0 0 3px #fbbf24aa);
+      transition: transform 0.3s ease;
+      background: #fff;
+    }
+    .logo-container:hover .logo-icon {
+      transform: rotate(15deg) scale(1.1);
+    }
+    .menu-img-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 12px #fbbf2440;
+      border: 3px solid #fbbf24;
+      background: #fff;
+      margin-bottom: 0.75rem;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+    .hide {
+      display: none;
+    }
+    .mini-anim {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      animation: miniFloat 4s ease-in-out infinite;
+      opacity: 0.75;
+      z-index: 10;
+      will-change: transform;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px 0 #c08401;
+      object-fit: cover;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+    @keyframes miniFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.1) rotate(10deg);}
+    }
+    /* Page transition classes */
+    .page-section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
+    }
+    .page-section.fade-out {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+    .page-section.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+      width: 100%;
+    }
+    /* Nav link text animation */
+    .nav-underline {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .nav-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 100%;
+      background: #b45309;
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 2px;
+    }
+    .nav-underline:hover::after,
+    .nav-underline.active::after {
+      transform: translateX(0);
+    }
+    /* Animate text color and scale on hover and active */
+    .nav-underline span {
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .nav-underline:hover span,
+    .nav-underline.active span {
+      color: #78350f;
+      transform: scale(1.1);
+    }
+    /* Animate letters individually */
+    .nav-underline span.letter {
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .nav-underline:hover span.letter,
+    .nav-underline.active span.letter {
+      animation: bounceIn 0.4s forwards;
+      color: #78350f;
+    }
+    .nav-underline span.letter:nth-child(1) { animation-delay: 0s; }
+    .nav-underline span.letter:nth-child(2) { animation-delay: 0.05s; }
+    .nav-underline span.letter:nth-child(3) { animation-delay: 0.1s; }
+    .nav-underline span.letter:nth-child(4) { animation-delay: 0.15s; }
+    .nav-underline span.letter:nth-child(5) { animation-delay: 0.2s; }
+    .nav-underline span.letter:nth-child(6) { animation-delay: 0.25s; }
+    .nav-underline span.letter:nth-child(7) { animation-delay: 0.3s; }
+    .nav-underline span.letter:nth-child(8) { animation-delay: 0.35s; }
+    .nav-underline span.letter:nth-child(9) { animation-delay: 0.4s; }
+    .nav-underline span.letter:nth-child(10) { animation-delay: 0.45s; }
+    .nav-underline span.letter:nth-child(11) { animation-delay: 0.5s; }
+    .nav-underline span.letter:nth-child(12) { animation-delay: 0.55s; }
+    .nav-underline span.letter:nth-child(13) { animation-delay: 0.6s; }
+    .nav-underline span.letter:nth-child(14) { animation-delay: 0.65s; }
+    .nav-underline span.letter:nth-child(15) { animation-delay: 0.7s; }
+    @keyframes bounceIn {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      60% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+      80% {
+        transform: translateY(5px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    /* Hamburger menu styles */
+    #mobile-menu-button {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #b45309;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+      z-index: 50;
+    }
+    #mobile-menu-button:hover {
+      color: #78350f;
+    }
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; /* height of nav */
+      right: 0;
+      width: 70vw;
+      max-width: 280px;
+      height: calc(100vh - 64px);
+      background: rgba(255 255 255 / 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: -4px 0 12px rgb(251 191 36 / 0.4);
+      border-left: 3px solid #fbbf24;
+      padding: 2rem 1.5rem;
+      z-index: 49;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      transform: translateX(100%);
+      -webkit-overflow-scrolling: touch;
+    }
+    #mobile-menu.show {
+      display: flex;
+      transform: translateX(0);
+    }
+    #mobile-menu a {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #b45309;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #mobile-menu a.active,
+    #mobile-menu a:hover {
+      color: #78350f;
+    }
+    #mobile-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      height: 3px;
+      width: 100%;
+      background: #b45309;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      border-radius: 2px;
+    }
+    #mobile-menu a.active::after,
+    #mobile-menu a:hover::after {
+      transform: translateX(0);
+    }
+    /* Hide desktop nav on small screens */
+    @media (max-width: 768px) {
+      ul.desktop-nav {
+        display: none;
+      }
+      #mobile-menu-button {
+        display: block;
+      }
+    }
+    @media (max-width: 640px) {
+      #order-total-section {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+      }
+      #order-pay-btn {
+        width: 100% !important;
+      }
+      .menu-img-circle {
+        width: 60px !important;
+        height: 60px !important;
+      }
+      .mini-anim { width: 24px !important; height: 24px !important; }
+    }
+    /* Additional responsive improvements */
+    @media (max-width: 480px) {
+      main#page-content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .page-section section.max-w-4xl,
+      .page-section section.max-w-5xl {
+        max-width: 100% !important;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .menu-img-circle {
+        width: 56px !important;
+        height: 56px !important;
+      }
+      #order-total-section {
+        gap: 1rem;
+      }
+      #order-total-section > div {
+        width: 100% !important;
+      }
+      #order-pay-btn {
+        font-size: 1.125rem;
+        padding: 0.75rem 0;
+      }
+      #mobile-menu {
+        width: 80vw;
+        max-width: none;
+        padding: 1.5rem 1rem;
+      }
+      #mobile-menu a {
+        font-size: 1.125rem;
+      }
+    }
+    /* Smooth transitions for quantity changes */
+    #menu-order-list > div {
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    #menu-order-list > div:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgb(251 191 36 / 0.4), 0 4px 6px -2px rgb(251 191 36 / 0.3);
+    }
+    /* Receipt styling as shopping receipt with improved spacing */
+    #receiptSection {
+      font-family: 'Courier New', Courier, monospace;
+      background: #fff;
+      border: 2px dashed #b45309;
+      max-width: 360px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 15px rgba(180, 83, 9, 0.3);
+      border-radius: 12px;
+      color: #4b2e05;
+      user-select: text;
+      line-height: 1.3;
+      letter-spacing: 0.05em;
+    }
+    #receiptSection h3 {
+      font-weight: 900;
+      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      border-bottom: 1px dashed #b45309;
+      padding-bottom: 0.5rem;
+    }
+    #receiptContent {
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px dashed #b45309;
+      padding-bottom: 0.75rem;
+    }
+    #receiptContent .line-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.15rem;
+    }
+    #receiptContent .line-item .name {
+      flex: 1 1 auto;
+      padding-right: 0.5rem;
+      word-break: break-word;
+    }
+    #receiptContent .line-item .qty {
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    #receiptContent .line-item .price {
+      width: 90px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    #receiptContent .total-line {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #b45309;
+      padding-top: 0.5rem;
+    }
+    #receiptContent .note {
+      margin-top: 0.5rem;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #7c4a00;
+      white-space: normal;
+    }
+    #receiptContent .thank-you {
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      color: #b45309;
+      letter-spacing: 0.05em;
+    }
+    #receiptQrisContainer {
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    #receiptBackBtn {
+      margin-top: 1rem;
+      background: linear-gradient(135deg, #b45309, #78350f);
+      box-shadow: 0 4px 8px rgba(180, 83, 9, 0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      border-radius: 24px;
+      padding: 0.75rem 0;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    #receiptBackBtn:hover {
+      background: linear-gradient(135deg, #78350f, #b45309);
+      transform: scale(1.05);
+    }
+  </style>
+ </head>
+ <body class="bg-gradient-to-br from-amber-50 via-white to-amber-100 min-h-screen transition-colors duration-500 relative overflow-x-hidden">
+  <!-- Navigation -->
+  <nav class="flex items-center justify-between px-6 md:px-12 py-5 bg-white/90 backdrop-blur-lg shadow-lg fixed w-full top-0 left-0 z-50 border-b border-amber-200">
+   <a aria-label="Nuansa Kopi Home" class="logo-container" data-page="home" href="#home">
+    <img alt="Logo bulat Nuansa Kopi, lingkaran coklat dengan ilustrasi biji kopi berwarna coklat tua di tengah" class="logo-icon" height="40" src="https://storage.googleapis.com/a1aa/image/27b831c7-1650-4be1-e2da-f9b6f8075adc.jpg" width="40"/>
+    <span>
+     Nuansa Kopi
+    </span>
+   </a>
+   <ul class="desktop-nav flex gap-8 text-lg font-semibold flex-wrap justify-end">
+    <li>
+     <a class="nav-link nav-underline text-amber-700 transition-all duration-200 hover:text-amber-900" data-page="home" href="#home" tabindex="0">
+      <span class="nav-text">
+       Home
+      </span>
+     </a>
+    </li>
+    <li>
+     <a class="nav-link nav-underline text-amber-700 transition-all duration-200 hover:text-amber-900" data-page="order" href="#order" tabindex="0">
+      <span class="nav-text">
+       Menu
+      </span>
+     </a>
+    </li>
+    <li>
+     <a class="nav-link nav-underline text-amber-700 transition-all duration-200 hover:text-amber-900" data-page="about" href="#about" tabindex="0">
+      <span class="nav-text">
+       About
+      </span>
+     </a>
+    </li>
+   </ul>
+   <button aria-label="Toggle menu" id="mobile-menu-button" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+  </nav>
+  <!-- Mobile menu -->
+  <nav aria-label="Mobile menu" id="mobile-menu" role="menu">
+   <a class="mobile-nav-link" data-page="home" href="#home" role="menuitem" tabindex="-1">
+    Home
+   </a>
+   <a class="mobile-nav-link" data-page="order" href="#order" role="menuitem" tabindex="-1">
+    Menu
+   </a>
+   <a class="mobile-nav-link" data-page="about" href="#about" role="menuitem" tabindex="-1">
+    About
+   </a>
+  </nav>
+  <!-- Animasi kecil di setiap halaman (foto biji kopi/coffee) -->
+  <div id="mini-anim-container">
+  </div>
+  <main class="pt-32 px-6 md:px-12 min-h-[75vh] max-w-7xl mx-auto relative" id="page-content" style="min-height:75vh;">
+   <!-- Home -->
+  <section class="page-section fade-in" id="home">
+  <section class="max-w-4xl mx-auto text-center">
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 text-amber-900 drop-shadow-lg tracking-tight leading-tight">
+      <span class="bg-gradient-to-tr from-amber-700 via-orange-400 to-amber-500 bg-clip-text text-transparent">Selamat Datang</span><br/>
+      <span class="text-amber-700">di Nuansa Kopi</span>
+    </h1>
+    <p class="text-xl md:text-2xl text-amber-700 mb-12 font-semibold max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
+      Nikmati aroma kopi terbaik, suasana cozy, dan pelayanan ramah. Mulai hari Anda dengan secangkir kopi spesial dari kami!
+    </p>
+    <div class="relative flex justify-center">
+      <img 
+        alt="Secangkir kopi hangat di atas meja kayu dengan latar belakang blur suasana kafe cozy dan hangat, pencahayaan lembut dan dekorasi kayu"
+        src="tempat caffe.jpg"
+        class="mx-auto rounded-3xl glow shadow-2xl w-[400px] h-[400px] hover:scale-105 transition-transform duration-700 object-cover max-w-full" />
+    </div>
+    <div class="mt-16 flex flex-col md:flex-row justify-center gap-8 px-2">
+      <a aria-label="Menu & Order Nuansa Kopi" class="goto ripple inline-block px-12 py-4 bg-gradient-to-br from-amber-700 to-amber-500 text-white rounded-3xl text-xl font-extrabold shadow-xl hover:from-amber-800 hover:to-amber-600 hover:scale-110 transition-all duration-300 tracking-wide text-center" data-page="order" href="#order">
+        Menu <i class="fas fa-shopping-cart ml-2"></i>
+      </a>
+    </div>
+  </section>
+</section>
+   <!-- Menu & Order (Gabungan) -->
+   <section class="page-section fade-out hidden" id="order">
+    <section class="max-w-5xl mx-auto bg-white/95 rounded-3xl shadow-2xl p-6 sm:p-10 mb-20 border border-amber-200">
+     <h2 class="text-3xl font-extrabold text-amber-900 mb-8 text-center tracking-tight drop-shadow-md">
+      Menu
+     </h2>
+     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-10" id="menu-order-list">
+      <!-- Menu item di-generate via JS -->
+     </div>
+     <div class="flex flex-col sm:flex-row sm:items-end gap-8 sm:gap-16 mt-12" id="order-total-section">
+      <div class="flex-1">
+       <div class="mb-2 font-bold text-amber-800 text-lg">
+        Nama Pemesan
+        <span class="text-red-600">
+         *
+        </span>
+       </div>
+       <input class="w-full rounded-xl border border-amber-300 px-5 py-3 focus:outline-none focus:ring-4 focus:ring-amber-400 transition shadow-sm mb-3" id="orderer-name" placeholder="Nama lengkap" required="" type="text"/>
+       <div class="font-bold text-amber-800 text-lg mb-2">
+        Catatan
+       </div>
+       <textarea class="w-full rounded-xl border border-amber-300 px-5 py-3 focus:outline-none focus:ring-4 focus:ring-amber-400 transition shadow-sm" id="order-note" placeholder="(Opsional)" rows="2"></textarea>
+      </div>
+      <div class="w-full sm:w-80 bg-amber-50 rounded-2xl p-6 shadow-xl border border-amber-200 flex flex-col items-center">
+       <div class="text-xl font-bold mb-2 text-amber-900">
+        Total
+       </div>
+       <div class="font-mono text-3xl font-extrabold text-amber-700 mb-4" id="order-total">
+        Rp 0
+       </div>
+       <div class="w-full">
+        <div class="font-bold text-amber-800 mb-2">
+         Metode Pembayaran
+         <span class="text-red-600">
+          *
+         </span>
+        </div>
+        <div class="flex flex-col gap-2 mb-4">
+         <label class="inline-flex items-center gap-3 cursor-pointer">
+          <input checked="" class="form-radio text-amber-600 focus:ring-amber-400" id="pay-cash" name="paymentMethod" required="" type="radio" value="cash"/>
+          <span class="text-amber-700 font-semibold select-none">
+           Bayar Langsung
+          </span>
+         </label>
+         <label class="inline-flex items-center gap-3 cursor-pointer">
+          <input class="form-radio text-amber-600 focus:ring-amber-400" id="pay-qris" name="paymentMethod" required="" type="radio" value="qris"/>
+          <span class="text-amber-700 font-semibold select-none">
+           Bayar QRIS
+          </span>
+         </label>
+        </div>
+       </div>
+       <button class="w-full bg-gradient-to-br from-amber-700 to-amber-500 text-white py-3 rounded-3xl font-extrabold text-lg shadow-xl hover:from-amber-800 hover:to-amber-600 hover:scale-110 transition-all duration-300 ripple mt-3" id="order-pay-btn">
+        Bayar
+        <i class="fas fa-check-circle ml-2">
+        </i>
+       </button>
+      </div>
+     </div>
+     <!-- Receipt Section -->
+     <div class="hidden mt-16 bg-amber-50 rounded-2xl p-6 shadow-lg max-w-md mx-auto text-amber-900 font-mono" id="receiptSection" role="region" aria-live="polite" aria-label="Struk pembelian">
+      <h3 class="text-2xl font-extrabold mb-4 text-center">
+       NUANSA KOPI
+      </h3>
+      <div id="receiptContent">
+      </div>
+      <div class="flex justify-center mt-6" id="receiptQrisContainer" style="display:none;">
+       <img alt="QRIS Pembayaran untuk Nuansa Kopi, kode QR berwarna hitam putih dengan latar belakang putih" class="rounded-3xl shadow-2xl border-8 border-amber-200 w-48 h-48 bg-white glow" src="https://api.qrserver.com/v1/create-qr-code/?data=NuansaKopiOrder2025&amp;size=240x240"/>
+      </div>
+      <button class="mt-6 w-full bg-gradient-to-br from-amber-700 to-amber-500 text-white py-3 rounded-3xl font-extrabold text-lg shadow-lg hover:from-amber-800 hover:to-amber-600 hover:scale-105 transition-all duration-300 ripple" id="receiptBackBtn" aria-label="Kembali ke menu pemesanan">
+       Kembali ke Menu
+      </button>
+     </div>
+    </section>
+   </section>
+   <!-- About -->
+   <section class="page-section fade-out hidden" id="about">
+    <section class="max-w-5xl mx-auto text-center">
+     <h2 class="text-4xl font-extrabold text-amber-900 mb-8 tracking-tight drop-shadow-md">
+      Tentang Nuansa Kopi
+     </h2>
+     <div class="flex flex-col md:flex-row items-center gap-12 mb-10">
+      <img alt="Interior nuansa kopi minimalis modern dengan sentuhan hangat, meja kayu, kursi nyaman, dan pencahayaan lembut" class="rounded-3xl mx-auto mb-6 md:mb-0 w-full max-w-sm glow shadow-2xl hover:scale-105 transition-transform duration-600 object-cover" height="600" src="https://storage.googleapis.com/a1aa/image/e2800842-007f-4ed5-0798-4608d878bd3c.jpg" width="800"/>
+      <div class="text-left max-w-xl px-2">
+       <p class="text-lg text-amber-700 mb-4 font-semibold leading-relaxed">
+        <span class="font-extrabold text-amber-900">
+         Nuansa Kopi
+        </span>
+        berdiri sejak 2020, mengusung konsep minimalis-modern dengan sentuhan hangat. Kami percaya bahwa kopi terbaik lahir dari biji pilihan, teknik penyeduhan tepat, dan cinta pada setiap sajian.
+       </p>
+       <p class="text-lg text-amber-700 mb-4 font-semibold leading-relaxed">
+        Setiap sudut kedai kami dirancang agar pengunjung merasa nyaman untuk menikmati kopi, bekerja, atau sekadar bersantai.
+       </p>
+       <p class="text-lg text-amber-700 font-semibold leading-relaxed">
+        Terima kasih telah mempercayakan momen istimewa Anda bersama kami. Kami selalu berinovasi demi memberikan pengalaman kopi terbaik!
+       </p>
+      </div>
+     </div>
+     <div class="mt-10">
+      <span class="inline-flex items-center gap-3 bg-amber-100 text-amber-800 px-6 py-3 rounded-full font-extrabold shadow-lg text-lg select-none">
+       #NgopiYuk
+       <img alt="Ikon cangkir kopi berwarna coklat tua, ilustrasi sederhana cangkir kopi dengan uap" class="w-6 h-6" height="24" src="https://storage.googleapis.com/a1aa/image/20e83e88-a167-4712-fb20-fdc1e32f7cdc.jpg" width="24"/>
+      </span>
+     </div>
+    </section>
+   </section>
+  </main>
+  <footer class="text-center text-amber-600 mt-32 mb-10 opacity-90 tracking-wide text-base font-semibold select-none px-4">
+   © 2025 Nuansa Kopi. All rights reserved.
+  </footer>
+  <script>
+   // Menu Data: Semua gambar menu minuman, tidak ada gambar kosong/random
+    const MENU_ITEMS = [
+      {
+        name: "Espresso",
+        price: 18000,
+        desc: "Shot kopi pekat, intense, dan aromatik.",
+        img: "https://storage.googleapis.com/a1aa/image/4145a944-4f14-4ba9-b04a-85fba8a3d321.jpg",
+        tag: "Hot"
+      },
+      {
+        name: "Cappuccino",
+        price: 24000,
+        desc: "Espresso, susu panas & foam lembut.",
+        img: "https://storage.googleapis.com/a1aa/image/9a20326e-63fc-47d0-3844-a7e16ba93372.jpg",
+        tag: "Favorite"
+      },
+      {
+        name: "Iced Coffee Latte",
+        price: 28000,
+        desc: "Kopi espresso dengan susu segar & es.",
+        img: "https://storage.googleapis.com/a1aa/image/a5638dae-6408-4f2d-1d9c-421cb30656a1.jpg",
+        tag: "Cold"
+      },
+      {
+        name: "Americano",
+        price: 20000,
+        desc: "Espresso dengan tambahan air panas, rasa ringan.",
+        img: "americano.jpg",
+        tag: "Hot"
+      },
+      {
+        name: "Mocha",
+        price: 27000,
+        desc: "Espresso, susu panas, dan coklat lezat.",
+        img: "mocha.jpg",
+        tag: "Favorite"
+      },
+      {
+        name: "Cold Brew",
+        price: 30000,
+        desc: "Kopi dingin diseduh lambat, rasa halus & segar.",
+        img: "Cold Brew.jpg",
+        tag: "Cold"
+      },
+      {
+        name: "Matcha Latte",
+        price: 26000,
+        desc: "Matcha Jepang dengan susu segar, creamy dan menenangkan.",
+        img: "macha latte.jpg",
+        tag: "Green"
+      },
+      {
+        name: "Chocolate",
+        price: 23000,
+        desc: "Minuman coklat hangat atau dingin, favorit segala usia.",
+        img: "chocolate.jpg",
+        tag: "Hot/Cold"
+      },
+      {
+        name: "Taro Latte",
+        price: 25000,
+        desc: "Taro manis lembut, dengan susu segar dan es.",
+        img: "taro latte.jpg",
+        tag: "Favorite"
+      },
+      {
+        name: "Lemon Tea",
+        price: 19000,
+        desc: "Teh segar dengan perasan lemon asli, cocok untuk pelepas dahaga.",
+        img: "lemon tea.jpg",
+        tag: "Cold"
+      },
+      {
+        name: "Thai Tea",
+        price: 22000,
+        desc: "Teh susu khas Thailand, manis dan creamy.",
+        img: "thai tea.jpg",
+        tag: "Cold"
+      },
+      {
+        name: "Mineral Water",
+        price: 3000,
+        desc: "Air mineral botol dingin/segar.",
+        img: "mineral water.jpg",
+        tag: "Fresh"
+      }
+    ];
+
+    // Mini Animation Assets (foto biji kopi & cangkir kopi)
+    const MINI_ANIM_ICONS = [
+      "https://storage.googleapis.com/a1aa/image/196f45ba-e43f-4792-25b0-b5fdd10a5605.jpg",
+      "https://storage.googleapis.com/a1aa/image/27b831c7-1650-4be1-e2da-f9b6f8075adc.jpg",
+    ];
+    const MINI_ANIM_POSITION = {
+      home: [
+        { top: "70px", left: "40px", size: 32, icon: 0 },
+        { top: "200px", right: "60px", size: 28, icon: 1 },
+        { bottom: "80px", left: "25%", size: 26, icon: 0 },
+      ],
+      order: [
+        { top: "90px", right: "45px", size: 30, icon: 1 },
+        { top: "300px", left: "60px", size: 24, icon: 0 },
+        { bottom: "160px", right: "30%", size: 24, icon: 1 },
+      ],
+      about: [
+        { top: "120px", left: "60px", size: 28, icon: 0 },
+        { bottom: "100px", right: "80px", size: 26, icon: 1 },
+        { top: "220px", right: "20px", size: 26, icon: 0 },
+      ],
+    };
+
+    // State
+    let cart = {};
+
+    function fmtRp(num) {
+      return "Rp " + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    function renderMenu() {
+      const menu = document.getElementById("menu-order-list");
+      menu.innerHTML = "";
+      MENU_ITEMS.forEach((item, i) => {
+        const id = "menu-" + i;
+        const qty = cart[item.name]?.qty || 0;
+        menu.innerHTML += `
+          <div class="bg-white rounded-3xl shadow-2xl hover:shadow-amber-300 transition-shadow duration-400 flex flex-col items-center p-6 border border-amber-200 relative overflow-hidden">
+            <img class="menu-img-circle" src="${item.img}" alt="Foto minuman ${item.name} dengan latar belakang netral dan pencahayaan natural" />
+            <div class="text-xl font-extrabold text-amber-900 mb-1">${item.name}</div>
+            <div class="text-amber-700 mb-3 text-center font-semibold min-h-12">${item.desc}</div>
+            <div class="text-lg font-bold text-amber-800 mb-2">${fmtRp(item.price)}</div>
+            <span class="absolute right-5 top-5 bg-gradient-to-tr from-amber-300 to-amber-100 text-amber-800 px-4 py-1 rounded-full text-xs font-bold shadow-lg select-none">
+              ${item.tag}
+            </span>
+            <div class="flex items-center gap-2 mt-4">
+              <button aria-label="Kurangi ${item.name}" class="dec-btn px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-bold text-lg shadow hover:bg-amber-200 transition-all" data-name="${item.name}">-</button>
+              <span class="w-8 text-center text-lg font-bold select-none" id="qty-${id}">${qty}</span>
+              <button aria-label="Tambah ${item.name}" class="inc-btn px-3 py-1 rounded-full bg-amber-700 text-white font-bold text-lg shadow hover:bg-amber-800 transition-all" data-name="${item.name}">+</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function updateTotal() {
+      let total = 0;
+      Object.values(cart).forEach(item => {
+        total += item.qty * item.price;
+      });
+      document.getElementById("order-total").textContent = fmtRp(total);
+    }
+
+    function bindMenuBtns() {
+      document.querySelectorAll(".inc-btn").forEach((btn) => {
+        btn.onclick = (e) => {
+          const name = btn.dataset.name;
+          const item = MENU_ITEMS.find((it) => it.name === name);
+          if (!cart[name]) cart[name] = { ...item, qty: 1 };
+          else cart[name].qty++;
+          renderMenu();
+          bindMenuBtns();
+          updateTotal();
+        };
+      });
+      document.querySelectorAll(".dec-btn").forEach((btn) => {
+        btn.onclick = (e) => {
+          const name = btn.dataset.name;
+          if (cart[name]) {
+            cart[name].qty = Math.max(cart[name].qty - 1, 0);
+            if (cart[name].qty === 0) delete cart[name];
+          }
+          renderMenu();
+          bindMenuBtns();
+          updateTotal();
+        };
+      });
+    }
+
+    function resetOrderForm() {
+      document.getElementById("orderer-name").value = "";
+      document.getElementById("order-note").value = "";
+      cart = {};
+      renderMenu();
+      bindMenuBtns();
+      updateTotal();
+      document.getElementById("pay-cash").checked = true;
+      document.getElementById("receiptSection").classList.add("hidden");
+      document.getElementById("order-total-section").classList.remove("hide");
+      document.getElementById("menu-order-list").classList.remove("hide");
+    }
+
+    function renderMiniAnim(page) {
+      const box = document.getElementById("mini-anim-container");
+      box.innerHTML = "";
+      if (!MINI_ANIM_POSITION[page]) return;
+      MINI_ANIM_POSITION[page].forEach((pos, i) => {
+        const img = document.createElement("img");
+        img.src = MINI_ANIM_ICONS[pos.icon];
+        img.className = "mini-anim";
+        img.style.width = img.style.height = (pos.size || 24) + "px";
+        if (pos.top) img.style.top = pos.top;
+        if (pos.right) img.style.right = pos.right;
+        if (pos.left) img.style.left = pos.left;
+        if (pos.bottom) img.style.bottom = pos.bottom;
+        img.style.animationDelay = (i * 1.2) + "s";
+        img.alt = "Animasi coffee kecil, ilustrasi biji kopi atau cangkir kopi kecil beranimasi melayang";
+        box.appendChild(img);
+      });
+    }
+
+    // Animate nav text letters individually
+    function splitNavText() {
+      document.querySelectorAll(".nav-link .nav-text").forEach(span => {
+        const text = span.textContent.trim();
+        span.innerHTML = "";
+        for (let i = 0; i < text.length; i++) {
+          const letter = document.createElement("span");
+          letter.textContent = text[i];
+          letter.className = "letter";
+          span.appendChild(letter);
+        }
+      });
+    }
+
+    // New function to handle page transitions
+    function transitionToPage(newPage) {
+      const pages = ["home", "order", "about"];
+      const currentPage = pages.find(p => !document.getElementById(p).classList.contains("hidden"));
+      if (currentPage === newPage) return; // no change
+
+      const currentSection = document.getElementById(currentPage);
+      const newSection = document.getElementById(newPage);
+
+      // Start fade out current
+      currentSection.classList.remove("fade-in");
+      currentSection.classList.add("fade-out");
+
+      // After fade out duration, hide current and show new with fade-in
+      setTimeout(() => {
+        currentSection.classList.add("hidden");
+        currentSection.classList.remove("fade-out");
+
+        newSection.classList.remove("hidden");
+        // Force reflow to restart animation
+        void newSection.offsetWidth;
+        newSection.classList.add("fade-in");
+
+        renderMiniAnim(newPage);
+
+        if (newPage === "order") {
+          resetOrderForm();
+        }
+      }, 500); // match CSS transition duration
+    }
+
+    function showPage(page) {
+      transitionToPage(page);
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.classList.remove("text-amber-900", "font-bold", "active");
+        if (link.dataset.page === page) {
+          link.classList.add("text-amber-900", "font-bold", "active");
+        }
+      });
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.classList.remove("active");
+        if (link.dataset.page === page) {
+          link.classList.add("active");
+        }
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      closeMobileMenu();
+    }
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    function toggleMobileMenu() {
+      if (mobileMenu.classList.contains("show")) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+    function openMobileMenu() {
+      mobileMenu.classList.add("show");
+      mobileMenu.setAttribute("aria-hidden", "false");
+      mobileMenuButton.setAttribute("aria-expanded", "true");
+      // Trap focus inside mobile menu
+      document.body.style.overflow = "hidden";
+    }
+    function closeMobileMenu() {
+      if (mobileMenu.classList.contains("show")) {
+        mobileMenu.classList.remove("show");
+        mobileMenu.setAttribute("aria-hidden", "true");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+    }
+
+    mobileMenuButton.addEventListener("click", toggleMobileMenu);
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        if (page) {
+          showPage(page);
+          window.location.hash = page;
+        }
+      });
+    });
+
+    document.querySelectorAll(".nav-link, .goto").forEach((link) => {
+      link.addEventListener("click", function (e) {
+        const page = link.dataset.page;
+        if (page) {
+          e.preventDefault();
+          showPage(page);
+          window.location.hash = page;
+        }
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      let page = window.location.hash.replace("#", "");
+      if (!["home", "order", "about"].includes(page)) page = "home";
+      showPage(page);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      splitNavText();
+      renderMenu();
+      bindMenuBtns();
+      updateTotal();
+      let page = window.location.hash.replace("#", "");
+      if (!["home", "order", "about"].includes(page)) page = "home";
+      // Initialize pages: show only the current page with fade-in, hide others
+      ["home", "order", "about"].forEach(p => {
+        const sec = document.getElementById(p);
+        if (p === page) {
+          sec.classList.remove("hidden");
+          sec.classList.add("fade-in");
+        } else {
+          sec.classList.add("hidden");
+          sec.classList.remove("fade-in");
+          sec.classList.add("fade-out");
+        }
+      });
+      renderMiniAnim(page);
+      if (page === "order") resetOrderForm();
+      // Hide mobile menu initially
+      mobileMenu.setAttribute("aria-hidden", "true");
+      mobileMenuButton.setAttribute("aria-expanded", "false");
+    });
+
+    document.getElementById("order-pay-btn").onclick = function () {
+      const name = document.getElementById("orderer-name").value.trim();
+      const note = document.getElementById("order-note").value.trim();
+      const payMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+      const cartItems = Object.values(cart).filter(item => item.qty > 0);
+
+      if (!name) return alert("Silakan isi nama pemesan.");
+      if (cartItems.length === 0) return alert("Silakan pilih minimal satu menu.");
+
+      let total = 0;
+      // Build receipt HTML with shopping receipt style and improved spacing + thank you
+      let receiptHTML = `<div><strong>Nama Pemesan:</strong> ${name}</div>`;
+      receiptHTML += `<div><strong>Pesanan:</strong></div>`;
+      receiptHTML += `<div style="margin-top:0.25rem;">`;
+      cartItems.forEach(item => {
+        const lineTotal = item.qty * item.price;
+        total += lineTotal;
+        receiptHTML += `
+          <div class="line-item" style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
+            <div class="name" style="flex:1 1 auto; padding-right:0.5rem; word-break: break-word;">${item.name}</div>
+            <div class="qty" style="width:28px; text-align:center; flex-shrink:0;">x${item.qty}</div>
+            <div class="price" style="width:90px; text-align:right; flex-shrink:0;">${fmtRp(lineTotal)}</div>
+          </div>
+        `;
+      });
+      receiptHTML += `</div>`;
+      receiptHTML += `<div class="note" style="margin-top:0.4rem; font-style:italic; font-size:0.9rem; color:#7c4a00; white-space: normal;">Catatan: ${note || "-"}</div>`;
+      receiptHTML += `<div class="total-line" style="font-weight:700; font-size:1.1rem; margin-top:0.5rem; display:flex; justify-content:space-between; border-top:1px solid #b45309; padding-top:0.5rem;">`;
+      receiptHTML += `<div>Total Bayar:</div><div>${fmtRp(total)}</div></div>`;
+      receiptHTML += `<div style="margin-top:0.4rem;"><strong>Metode Pembayaran:</strong> ${payMethod === "qris" ? "Bayar QRIS" : "Bayar Langsung"}</div>`;
+      receiptHTML += `<div class="thank-you" style="margin-top:1rem; font-weight:700; font-size:1rem; text-align:center; color:#b45309; letter-spacing:0.05em;">Terima kasih atas kunjungan dan pesanan Anda!</div>`;
+
+      document.getElementById("receiptContent").innerHTML = receiptHTML;
+      document.getElementById("receiptQrisContainer").style.display = payMethod === "qris" ? "flex" : "none";
+      document.getElementById("receiptSection").classList.remove("hidden");
+      document.getElementById("order-total-section").classList.add("hide");
+      document.getElementById("menu-order-list").classList.add("hide");
+    };
+
+    document.getElementById("receiptBackBtn").onclick = function () {
+      resetOrderForm();
+    };
+  </script>
+ </body>
+</html>
